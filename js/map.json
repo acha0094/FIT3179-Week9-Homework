@@ -1,0 +1,38 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "COVID-19 Death Cases (19 September 2022)",
+    "width": 800,
+    "height": 400,
+    "projection": {"type": "mercator"},
+    "data": {
+      "url": "js/malaysia.json",
+      "format": {"type": "topojson", "feature": "states"}
+    },
+    "transform": [
+        {
+            "lookup": "properties.Name",
+            "from": {
+                "data": {
+                    "url": "data/epidemic/total_deaths_state.csv"
+                },
+                "key": "state",
+                "fields": ["total_deaths", "population"]
+            }
+        },
+        {"calculate": "datum.total_deaths/datum.population * 10000", "as": "Deaths per 10,000 Population"}
+    ],
+    "mark": {"type": "geoshape"},
+    "encoding": {
+        "color": {
+            "field": "Deaths per 10,000 Population",
+            "type": "quantitative",
+            "scale": {"type": "log"}
+        },
+        "tooltip": [
+            {"field": "properties.Name", "type": "nominal", "title": "State"},
+            {"field": "population", "type": "quantitative", "title": "Population"},
+            {"field": "total_deaths", "type": "quantitative", "title": "Total Deaths"},
+            {"field": "Deaths per 10,000 Population", "type": "quantitative", "format": ".2f"}
+        ]
+    }
+}
