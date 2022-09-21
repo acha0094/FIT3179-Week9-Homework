@@ -8,3 +8,6 @@
 - Contains JSON files to display the map idiom
 - map.json contains vega lite codes to display the map idiom
 - malaysia.json contains the TOPOJSON for Malaysia's states and federal territories
+
+## Website Hosting
+- The map idiom can be viewed at: https://acha0094.github.io/FIT3179-Week9-Homework/
